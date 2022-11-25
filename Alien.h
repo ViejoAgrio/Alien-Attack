@@ -2,150 +2,177 @@
 #define ALIEN_H_INCLUDED
 #include <iostream>
 
-class Human_brain{
-private:
-    int resistance;
-    int level;
+//Definicion clase Ser
+class Ser{
+protected:
     int inteligence;
-
+    float luck;
 public:
-    Human_brain() : resistance(0), level(0), inteligence(0){};
-    Human_brain(int res, int lev, int inte):resistance(res), level(lev), inteligence(inte){};
-
-    int get_resistance();
-    int get_level();
-    int get_inteligence();
-
-    void set_resistance(int);
-    void set_level(int);
-    void set_inteligence(int);
-
-    void show_all();
+    //Constructores
+    Ser(){};
+    Ser(int, float);
+    //Getters
+    int getInteligence();
+    float getLuck();
+    //Setters
+    void setInteligence(int);
+    void setLuck(float);
 };
 
-int Human_brain::get_resistance(){
-    return resistance;
-}
-int Human_brain::get_level(){
-    return level;
-}
-int Human_brain::get_inteligence(){
-    return inteligence;
-}
-
-
-void Human_brain::set_resistance(int new_resistance){
-    resistance=new_resistance;
-}
-
-void Human_brain::set_level(int new_level){
-    level=new_level;
-}
-
-void Human_brain::set_inteligence(int new_inteligence){
-    inteligence=new_inteligence;
-}
-
-void Human_brain::show_all(){
-    std::cout<<"Resistance "<<resistance<<"\n";
-    std::cout<<"Level "<<level<<"\n";
-    std::cout<<"Inteligence "<<inteligence<<"\n";
-}
-
-class Alien{
-private:
-    int strenght;
-    int luck;
-    int inteligence;
-    std::string name;
-
-public:
-    Alien() : strenght(0), luck(0), inteligence(0), name(""){};
-    Alien(int stren, int luc, int inte, std::string nam):strenght(stren), luck(luc), inteligence(inte), name(nam){};
-
-    int get_strenght();
-    int get_luck();
-    int get_inteligence();
-    std::string get_name();
-
-    void set_strenght(int);
-    void set_luck(int);
-    void set_inteligence(int);
-    void set_name(std::string);
-
-    void eat_brain();
-};
-
-int Alien::get_strenght(){
-    return strenght;
-}
-int Alien::get_luck(){
-    return luck;
-}
-int Alien::get_inteligence(){
-    return inteligence;
-}
-
-std::string Alien::get_name(){
-    return name;
-}
-
-void Alien::set_strenght(int new_strenght){
-    strenght=new_strenght;
-}
-
-void Alien::set_luck(int new_luck){
-    luck=new_luck;
-}
-
-void Alien::set_inteligence(int new_inteligence){
-    inteligence=new_inteligence;
-}
-
-void Alien::set_name(std::string new_name){
-    name=new_name;
-}
-
+//Definicion clase Weapon
 class Weapon{
 private:
-    int damage;
-    int inteligence_cost;
     std::string name;
-
+    int damage;
 public:
-    Weapon(): damage(0), inteligence_cost(0), name(""){};
-    Weapon(int dam, int inte, std::string nam):damage(dam), inteligence_cost(inte), name(nam){};
-
-    int get_damage();
-    int get_inteligence_cost();
-    std::string get_name();
-
-    void set_damage(int);
-    void set_inteligence_cost(int);
-    void set_name(std::string);
+    //Constructores
+    Weapon();
+    Weapon(std::string, int);
+    //Getters
+    std::string getWeaponname();
+    int getDamage();
 };
 
-int Weapon::get_damage(){
+//Definicion clase Brain con herencia de clase Ser
+class Brain:public Ser{
+private:
+    int resistence;
+public:
+    //Constructores
+    Brain();
+    Brain(int,float,int);
+    //Getters
+    int getResistence();
+};
+
+//Definicion clase Alien con herencia de clase Ser
+class Alien:public Ser{
+private:
+    Weapon weapon;
+public:
+    //Constructores
+    Alien();
+    Alien(int,float,Weapon);
+    //Getters
+    std::string getWeaponName();
+    int getWeaponId();
+    //Setters de clase que compone a la clase Alien con sobrecarga
+    void setWeapon(std::string,int);
+    void setWeapon(Weapon);
+    //Metodos particulares de la clase
+    void eatBrain(Brain);
+    void upgradeWeapon(Weapon&);
+    void muerte();
+};
+//Definicion constructores clase Ser
+Ser::Ser(int inte, float luc){
+    inteligence=inte;
+    luck=luc;
+};
+//Definicion getters clase Ser
+int Ser::getInteligence(){
+    return inteligence;
+};
+
+float Ser::getLuck(){
+    return luck;
+};
+//Definicion setters clase Ser
+void Ser::setInteligence(int inte){
+    inteligence=inte;
+};
+
+void Ser::setLuck(float luc){
+    luck=luc;
+};
+
+//Definicion constructores clase Weapon
+Weapon::Weapon(){
+    name="";
+    damage=0;
+};
+
+Weapon::Weapon(std::string nam, int dam){
+    name=nam;
+    damage=dam;
+};
+//Definicion getters clase Weapon
+std::string Weapon::getWeaponname(){
+    return name;
+};
+
+int Weapon::getDamage(){
     return damage;
 }
-int Weapon::get_inteligence_cost(){
-    return inteligence_cost;
-}
+//NOTA: Para la clase Weapon no utilizare setters pues no se modificaran una vez creados
 
-std::string Weapon::get_name(){
-    return name;
-}
+//Definicion constructores clase Brain
+Brain::Brain(){
+    inteligence=0;
+    luck=0.0;
+    resistence=0;
+};
 
-void Weapon::set_damage(int new_damage){
-    damage=new_damage;
-}
+Brain::Brain(int inte,float luc,int res){
+    inteligence=inte;
+    luck=luc,
+    resistence=res;
+};
+//Definicion getters clase Brain
+int Brain::getResistence(){
+    return resistence;
+};
+//NOTA: Para la clase Brain no utilizare setters pues no se modificaran una vez creados
 
-void Weapon::set_inteligence_cost(int new_inteligence_cost){
-    inteligence_cost=new_inteligence_cost;
-}
+//Definicion constructores clase Alien
+Alien::Alien(){
+    inteligence=0;
+    luck=0;
+    weapon=Weapon();
+};
 
-void Weapon::set_name(std::string new_name){
-    name=new_name;
-}
+Alien::Alien(int inte, float luc, Weapon weap){
+    inteligence=inte;
+    luck=luc;
+    weapon=weap;
+};
+
+//Definicion setters clase Alien
+void Alien::setWeapon(std::string nam, int dam){
+    weapon=Weapon(nam,dam);
+};
+
+void Alien::setWeapon(Weapon weap){
+    weapon=weap;
+};
+
+//Definicion getters clase Alien
+std::string Alien::getWeaponName(){
+    return weapon.getWeaponname();
+};
+
+//Definicion metodo eatBrain de clase Alien
+void Alien::eatBrain(Brain bra){
+    if (bra.getResistence()<=weapon.getDamage()){
+        setInteligence(getInteligence()+bra.getInteligence());
+    }
+    else{
+        setInteligence(getInteligence()-10);
+        std::cout<<"You couldn't eat this barin";
+        if (getInteligence()<1){
+            muerte();
+        }
+    }
+};
+
+/*void Alien::upgradeWeapon(Weapon &weaponArray){
+    setWeapon(weaponArray);
+    setInteligence(getInteligence()-getWeaponId());
+};*/
+
+//Definicion metodo muerte de clase Alien
+void Alien::muerte(){
+    std::cout<<"Your Alien died";
+};
+
 #endif // ALIEN_H_INCLUDED
-// Hola
