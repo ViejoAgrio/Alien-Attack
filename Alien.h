@@ -37,8 +37,6 @@ public:
     int getPrice();
     //Setter
     void setId();
-    //Metodos particualares de la clase
-    void restar1Damage();
 };
 
 //Definicion clase Brain con herencia de clase Ser
@@ -51,7 +49,7 @@ public:
     Brain(int,float,int);
     //Getters
     int getResistence();
-
+    //Metodos particulares
     void showAll();
 };
 
@@ -129,7 +127,7 @@ char Weapon::getId(){
 int Weapon::getPrice(){
     return price;
 }
-//NOTA: Para la clase Weapon no utilizare setters pues no se modificaran una vez creados
+//NOTA: Para la clase Weapon no utilizare mas que 1 setter pues no se modificara otro atributo una vez creados
 
 //Definicion metodo setId de la clase Weapon
 void Weapon::setId(){
@@ -193,6 +191,10 @@ void Alien::setWeapon(Weapon weap){
     weapon=weap;
 };
 
+void Alien::setWeaponId(){
+    weapon.setId();
+}
+
 //Definicion getters clase Alien
 std::string Alien::getWeaponName(){
     return weapon.getWeaponname();
@@ -220,16 +222,13 @@ void Alien::eatBrain(Brain bra){
     }
 };
 
-//Definicion metodo muerte de clase Alien
+//Definicion metodo showStats de clase Alien
 void Alien::showStats(){
     std::cout<<"These are your alien new stats: \n";
     std::cout<<"Inteligence: "<<getInteligence()<<". Luck: "<<getLuck()<<". Weapon: "<<getWeaponName()<<". Damage: "<<getWeaponDamage()<<".\n";
 };
 
-void Alien::setWeaponId(){
-    weapon.setId();
-}
-
+//Definicion metodo muerte de clase Alien
 void Alien::muerte(){
     std::cout<<"Your Alien died\n";
     exit(1);
