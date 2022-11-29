@@ -3,45 +3,59 @@
 #include "Alien.h"
 
 using namespace std;
-
+//Funcion que da la bienvenida al jugador
 void bienvenida();
+//Funcion que imprime las instrucciones del juego
 void instructions();
+//Funcion que manda crear cerebros
 Brain creaBrain(float);
+//Funcion que muestra y maneja la tienda de armas
 Alien store(Alien);
 
 int main(){
 
     bienvenida();
     instructions();
+    //i es la condicion del ciclo while a continuacion
     int i=1;
+    //comer la utilizaremos para guardar la desicion del usuario sobre los
+    //comer y dejar el cerebro, ir a la tienda o cerrar el juego.
     char comer;
     Alien ali(12,1.0,Weapon("Beat",1,'x',0));
+    //Ciclo while que nos va estar constantemente mostrando cerebros
     while (i==1){
+        //Crea cerebro, manda la suerte de tu alien para retornar un cerebro
+        //con inteligencia acorde a la suerte de tu alien
         Brain brain=creaBrain(ali.getLuck());
+        //Se imprimen las estadisticas del cerebro
         brain.showAll();
+        //Se imprimen las estadisticas de tu alien
         ali.showStats();
+        //Se captura la decision del jugador
         comer=getch();
+        //Se limpia la consola
         system("cls");
+        //Menu de opciones
         if (comer=='e'){
+            //Comer cerebro
             ali.eatBrain(brain);
         }
         else if(comer=='l'){
-
+            //No comer
         }
         else if(comer=='s'){
+            //Abrir la tienda
             ali=store(ali);
         }
         else if(comer=='q'){
+            //Terminar el programa
             i=2;
         }
         else{
+            //Default
             cout<<"Command unrecognized, try again\n\n";
         }
     }
-
-
-    //Creamos un objeto de tipo Alien
-
     return 0;
 }
 
@@ -72,10 +86,15 @@ cout<<"                    Press ENTER to continue \n";
 };
 
 Brain creaBrain(float luc){
+    //Cast
     int enteroLuck=(int)luc;
+    //Se calcula la inteligencia del cerebro a crear
     int inte=rand()%(20+enteroLuck)-(10+enteroLuck/2);
+    //Se calcula la suerte del cerebro a crear
     float luck=rand()%10;
+    //Se calcula la resistencia del cerebro a crear
     int resistence=rand()%10;
+    //Se crea el cerebro con el constructor de la clase Brain
     Brain brain(inte,luck,resistence);
     return brain;
 };
@@ -83,7 +102,7 @@ Brain creaBrain(float luc){
 Alien store(Alien ali){
     system("cls");
     char opcion;
-    //ali.setWeaponId();
+    //Creamos las opciones de armas
     Weapon arrweapons[9];
     arrweapons[0]=Weapon("Rock",2,'q',20);
     arrweapons[1]=Weapon("Bite",3,'w',60);
@@ -93,32 +112,44 @@ Alien store(Alien ali){
     arrweapons[5]=Weapon("U.F.O",7,'y',320);
     arrweapons[6]=Weapon("Planet Invasion",8,'u',450);
     arrweapons[7]=Weapon("God Entity",10,'i',700);
+    //El arma 8 la igualamos a nuestra arma actual para despues
+    //comparaciones futuras
     arrweapons[8]=ali.getWeapon();
+    //Instrucciones y muestra de caracteristicas de tu alien
     cout<<"Get a new weapon\n"<<"Pick the letter next the weapon to buy it with Alien's inteligence\n"<<"Press [x] to get back to the game \n\n";
     ali.showStats();
+    //Impresion del menu de aramas
     cout<<"\nRock Damage: 2 [Q] "<<"Bite Damage: 3 [W] "<<"Gun Damage: 4 [E] "<<"Laser Damage: 5 [R] \n";
     cout<<"Price: 20          Price: 60          Price: 100        Price: 150\n\n";
     cout<<"Telekinesis Damage: 6 [T] "<<"U.F.O Damage: 7 [Y] "<<"Planet Invasion Damage: 8 [U] "<<"God Entity: 10 [I] \n";
     cout<<"Price: 200                Price: 320          Price: 450                    Price: 700\n";
     opcion=getch();
+    //Salir de la tienda
     if(opcion=='x'){
         system("cls");
         return ali;
     }
+    //Ciclo para verificar si existe un arma con el id marcado
+    //por el usuario
     for(int i=0;i<9;i++){
+        //Comparacion de Ids
         if(opcion==arrweapons[i].getId()){
+            //Comparacion de daños de armas para evitar comprar
+            //multiples veces la misma arma
             if(ali.getWeaponDamage()==arrweapons[i].getDamage()){
                 cout<<"You already have this weapon. Press ENTER to continue\n";
                 getch();
                 ali=store(ali);
                 break;
             }
+            //Evitar comprar armas con menor daño
             else if(ali.getWeaponDamage()>arrweapons[i].getDamage()){
                 cout<<"The weapon you already have is better. You can't buy this one. Press ENTER to continue\n";
                 getch();
                 ali=store(ali);
                 break;
             }
+            //Si nos alcanza asignar los nuevos valores a nuestro alien
             else if(ali.getInteligence()>=arrweapons[i].getPrice()){
                 ali.setWeapon(arrweapons[i]);
                 ali.setInteligence(ali.getInteligence()-arrweapons[i].getPrice());
@@ -129,6 +160,7 @@ Alien store(Alien ali){
                 system("cls");
                 return ali;
             }
+            //Evitar comprar armas que no nos alcance
             else{
                 cout<<"You don't have enough inteligence to afford this weapon. Press ENTER to continue\n";
                 ali.showStats();
@@ -137,6 +169,7 @@ Alien store(Alien ali){
                 break;
             }
         }
+        //Evitar que el usuario ponga una opcion inexistente
         else if(i==8){
             cout<<"The letter you pressed is not assigned to any weapon in store. Press ENTER to continue\n";
             getch();
@@ -145,10 +178,12 @@ Alien store(Alien ali){
         }
     }
     system("cls");
+    //Retornar un alien con el nuevo armamento
     return ali;
 };
 
 void instructions(){
+    //Imprimir instrucciones
     cout<<"Instructions\n\n";
     cout<<"Eat Brains to gain stats\n";
     cout<<"Be careful, there are brains that will damage yours\n";
