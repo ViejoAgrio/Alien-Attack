@@ -24,13 +24,21 @@ class Weapon{
 private:
     std::string name;
     int damage;
+    char id;
+    int price;
 public:
     //Constructores
     Weapon();
-    Weapon(std::string, int);
+    Weapon(std::string, int,char,int);
     //Getters
     std::string getWeaponname();
     int getDamage();
+    char getId();
+    int getPrice();
+    //Setter
+    void setId();
+    //Metodos particualares de la clase
+    void restar1Damage();
 };
 
 //Definicion clase Brain con herencia de clase Ser
@@ -43,6 +51,8 @@ public:
     Brain(int,float,int);
     //Getters
     int getResistence();
+
+    void showAll();
 };
 
 //Definicion clase Alien con herencia de clase Ser
@@ -55,13 +65,16 @@ public:
     Alien(int,float,Weapon);
     //Getters
     std::string getWeaponName();
+    int getWeaponDamage();
     int getWeaponId();
+    Weapon getWeapon();
     //Setters de clase que compone a la clase Alien con sobrecarga
-    void setWeapon(std::string,int);
+    void setWeapon(std::string,int,char,int);
     void setWeapon(Weapon);
     //Metodos particulares de la clase
     void eatBrain(Brain);
-    void upgradeWeapon(Weapon&);
+    void showStats();
+    void setWeaponId();
     void muerte();
 };
 //Definicion constructores clase Ser
@@ -90,11 +103,15 @@ void Ser::setLuck(float luc){
 Weapon::Weapon(){
     name="";
     damage=0;
+    id='g';
+    price=0;
 };
 
-Weapon::Weapon(std::string nam, int dam){
+Weapon::Weapon(std::string nam, int dam, char idd, int pri){
     name=nam;
     damage=dam;
+    id=idd;
+    price=pri;
 };
 //Definicion getters clase Weapon
 std::string Weapon::getWeaponname(){
@@ -104,7 +121,20 @@ std::string Weapon::getWeaponname(){
 int Weapon::getDamage(){
     return damage;
 }
+
+char Weapon::getId(){
+    return id;
+}
+
+int Weapon::getPrice(){
+    return price;
+}
 //NOTA: Para la clase Weapon no utilizare setters pues no se modificaran una vez creados
+
+//Definicion metodo setId de la clase Weapon
+void Weapon::setId(){
+    id='x';
+}
 
 //Definicion constructores clase Brain
 Brain::Brain(){
@@ -122,7 +152,24 @@ Brain::Brain(int inte,float luc,int res){
 int Brain::getResistence(){
     return resistence;
 };
+
+void Brain::showAll(){
+std::cout<<"A new brain has appeared\n\n";
+std::cout<<"    _---~~(~~-_\n";
+std::cout<<"    _{        )   )\n";
+std::cout<<"  ,   ) -~~- ( ,-' )_\n";
+std::cout<<" (  `-,_..`., )-- '_,)\n";
+std::cout<<"( ` _)  (  -~( -_ `,  }\n";
+std::cout<<"(_-  _  ~_-~~~~`,  ,' )\n";
+std::cout<<"  `~ -^(    __;-,((()))\n";
+std::cout<<"        ~~~~ {_ -_(())\n";
+std::cout<<"               `  }\n";
+std::cout<<"                 { } \n\n";
+std::cout<<"Inteligence: "<<getInteligence()<<" luck: "<<getLuck()<<" resistence: "<<getResistence()<<"\n";
+std::cout<<"Eat or Leave?\n";
+};
 //NOTA: Para la clase Brain no utilizare setters pues no se modificaran una vez creados
+
 
 //Definicion constructores clase Alien
 Alien::Alien(){
@@ -138,8 +185,8 @@ Alien::Alien(int inte, float luc, Weapon weap){
 };
 
 //Definicion setters clase Alien
-void Alien::setWeapon(std::string nam, int dam){
-    weapon=Weapon(nam,dam);
+void Alien::setWeapon(std::string nam, int dam,char idd,int pri){
+    weapon=Weapon(nam,dam,idd,pri);
 };
 
 void Alien::setWeapon(Weapon weap){
@@ -151,28 +198,41 @@ std::string Alien::getWeaponName(){
     return weapon.getWeaponname();
 };
 
+int Alien::getWeaponDamage(){
+    return weapon.getDamage();
+};
+Weapon Alien::getWeapon(){
+    return weapon;
+}
+
 //Definicion metodo eatBrain de clase Alien
 void Alien::eatBrain(Brain bra){
     if (bra.getResistence()<=weapon.getDamage()){
         setInteligence(getInteligence()+bra.getInteligence());
+        setLuck(getLuck()+bra.getLuck()*0.05);
     }
     else{
         setInteligence(getInteligence()-10);
-        std::cout<<"You couldn't eat this barin";
+        std::cout<<"You couldn't eat this brain\n\n";
         if (getInteligence()<1){
             muerte();
         }
     }
 };
 
-/*void Alien::upgradeWeapon(Weapon &weaponArray){
-    setWeapon(weaponArray);
-    setInteligence(getInteligence()-getWeaponId());
-};*/
-
 //Definicion metodo muerte de clase Alien
+void Alien::showStats(){
+    std::cout<<"These are your alien new stats: \n";
+    std::cout<<"Inteligence: "<<getInteligence()<<". Luck: "<<getLuck()<<". Weapon: "<<getWeaponName()<<". Damage: "<<getWeaponDamage()<<".\n";
+};
+
+void Alien::setWeaponId(){
+    weapon.setId();
+}
+
 void Alien::muerte(){
-    std::cout<<"Your Alien died";
+    std::cout<<"Your Alien died\n";
+    exit(1);
 };
 
 #endif // ALIEN_H_INCLUDED
