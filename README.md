@@ -23,4 +23,5 @@ Avance Entrga Final:
 -Se implementaron multiples funciones para el uso de las clases y manejo del programa. 
 -Se agregaron funciones para mejorar la estetica del programa, tales como aquellas que hacen arte ASCII o system("cls") para estar limpiando la consola constantemente y las impresiones tienen saltos de linea para que se lea mejor.
 -Se implementó código para verificar entradas del usuario con mensajes que alertan que no se reconoce la entrada o que es incorrecta. 
+-Se documentó en el código cada parte de este.
 -No se han hecho más correciones con base en los comentarios pues aún no recibo retroalimentación del avance anterior
