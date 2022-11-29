@@ -9,7 +9,7 @@ Avance 2: Se añadió el pdf del diagrama uml de las clases que voy a utilizar p
 
 Avance 3: 
 - Se tomó en cuenta los comentarios de las evaluaciones de las entregas anteriores y se hicieron los cambios respecto al github. Especificamente, se añadió el nombre y matricula e información de como correr el código. 
-- Se corrigió en base a los comnetarios el diagrama de uml.
+- Se corrigió en base a los comnetarios el diagrama de uml. Especificamente se corrigió el modificado de acceso de la clase especie y se dejó de poner los métodos heredados en las clases especificas otra vez. (Lo había puesto así para marcar que había que hacer reescritura pero me lo pusieron mal.)
 - Se imprimen el nombre de los atributos con el nombre del atributo como se había marcado.
 - Se implementaron las clases con herencia.
 - Se implementó un ejemplo de uso de composición.
