@@ -21,6 +21,7 @@ int main(){
     //comer la utilizaremos para guardar la desicion del usuario sobre los
     //comer y dejar el cerebro, ir a la tienda o cerrar el juego.
     char comer;
+    //ali tipo Alien es creado con composicion de la clase Weapon
     Alien ali(12,1.0,Weapon("Beat",1,'x',0));
     //Ciclo while que nos va estar constantemente mostrando cerebros
     while (i==1){
@@ -151,6 +152,8 @@ Alien store(Alien ali){
             }
             //Si nos alcanza asignar los nuevos valores a nuestro alien
             else if(ali.getInteligence()>=arrweapons[i].getPrice()){
+                //El atributo weapon de ali se le asigna una variable tipo Weapon
+                //por agragación
                 ali.setWeapon(arrweapons[i]);
                 ali.setInteligence(ali.getInteligence()-arrweapons[i].getPrice());
                 ali.showStats();
