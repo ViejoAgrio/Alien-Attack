@@ -1,8 +1,43 @@
-#include <iostream>
 #include <conio.h>
 #include "Alien.h"
+#include <iostream>
+#include <stdio.h>
+
+//Nota Si el programa se quiere correr en Linux es necesario comentar la linea 1
+// y descomentar los includes y funciones a continuaricón.
+
+/*#include <termios.h>
+#include <unistd.h>
+
+int getch(void)
+{
+    struct termios oldattr, newattr;
+    int ch;
+    tcgetattr( STDIN_FILENO, &oldattr );
+    newattr = oldattr;
+    newattr.c_lflag &= ~( ICANON | ECHO );
+    tcsetattr( STDIN_FILENO, TCSANOW, &newattr );
+    ch = getchar();
+    tcsetattr( STDIN_FILENO, TCSANOW, &oldattr );
+    return ch;
+}
+
+int getche(void)
+{
+    struct termios oldattr, newattr;
+    int ch;
+    tcgetattr( STDIN_FILENO, &oldattr );
+    newattr = oldattr;
+    newattr.c_lflag &= ~( ICANON );
+    tcsetattr( STDIN_FILENO, TCSANOW, &newattr );
+    ch = getchar();
+    tcsetattr( STDIN_FILENO, TCSANOW, &oldattr );
+    return ch;
+}*/
+
 
 using namespace std;
+//Firmas de funciones. Abajo en su definición se describe que hacen
 //Funcion que da la bienvenida al jugador
 void bienvenida();
 //Funcion que imprime las instrucciones del juego
@@ -12,6 +47,11 @@ Brain creaBrain(float);
 //Funcion que muestra y maneja la tienda de armas
 Alien store(Alien);
 
+/* Código principal que controla el manejo de clases y funciones
+ *
+ * @parametro
+ * @return int: termino exitoso del programa
+ */
 int main(){
 
     bienvenida();
@@ -60,6 +100,11 @@ int main(){
     return 0;
 }
 
+/* Funcion que da la bienvenida al jugador
+ *
+ * @parametro
+ * @return
+ */
 void bienvenida(){
 cout<<"                          Alien Attack \n\n";
 cout<<"     _                      _______                      _\n";
@@ -86,6 +131,12 @@ cout<<"                    Press ENTER to continue \n";
     system("cls");
 };
 
+/* Funcion que crea cerebros aleatorios que se pueden comer
+ *
+ * @parametro float luc: suerte del alien que influye en la creación
+ * de cerebros mejores
+ * @return Brain: cerebro que se puede comer
+ */
 Brain creaBrain(float luc){
     //Cast
     int enteroLuck=(int)luc;
@@ -100,6 +151,11 @@ Brain creaBrain(float luc){
     return brain;
 };
 
+/* Funcion que imprime y trabaja la tienda
+ *
+ * @parametro Alien ali: Estado actual del alien
+ * @return Alien: Estado del alien al dejar la tienda
+ */
 Alien store(Alien ali){
     system("cls");
     char opcion;
@@ -120,9 +176,9 @@ Alien store(Alien ali){
     cout<<"Get a new weapon\n"<<"Pick the letter next the weapon to buy it with Alien's inteligence\n"<<"Press [x] to get back to the game \n\n";
     ali.showStats();
     //Impresion del menu de aramas
-    cout<<"\nRock Damage: 2 [Q] "<<"Bite Damage: 3 [W] "<<"Gun Damage: 4 [E] "<<"Laser Damage: 5 [R] \n";
+    cout<<"\nRock Damage: 2 [q] "<<"Bite Damage: 3 [w] "<<"Gun Damage: 4 [e] "<<"Laser Damage: 5 [r] \n";
     cout<<"Price: 20          Price: 60          Price: 100        Price: 150\n\n";
-    cout<<"Telekinesis Damage: 6 [T] "<<"U.F.O Damage: 7 [Y] "<<"Planet Invasion Damage: 8 [U] "<<"God Entity: 10 [I] \n";
+    cout<<"Telekinesis Damage: 6 [t] "<<"U.F.O Damage: 7 [y] "<<"Planet Invasion Damage: 8 [u] "<<"God Entity: 10 [i] \n";
     cout<<"Price: 200                Price: 320          Price: 450                    Price: 700\n";
     opcion=getch();
     //Salir de la tienda
@@ -185,6 +241,11 @@ Alien store(Alien ali){
     return ali;
 };
 
+/* Función que imprime las instrucciones del manejo del programa
+ *
+ * @parametro
+ * @return
+ */
 void instructions(){
     //Imprimir instrucciones
     cout<<"Instructions\n\n";
@@ -193,8 +254,9 @@ void instructions(){
     cout<<"You can only eat the brains which have less resistence than your weapon's damage\n";
     cout<<"You can earn inteligence and luck, with inteligence you can ugpgrade your weapons\n";
     cout<<"With luck there will appear better barins\n";
-    cout<<"Press [E] to eat, [L] to leave, [S] to visit the store or [Q] to quit the game.\n";
+    cout<<"Press [e] to eat, [l] to leave, [s] to visit the store or [q] to quit the game.\n";
     cout<<"Press ENTER to continue\n";
     getch();
     system("cls");
 }
+
