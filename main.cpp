@@ -35,6 +35,12 @@ int getche(void)
     return ch;
 }*/
 
+/* Proyecto Alien Attack
+ * Imanol Muñiz Ramirez
+ * A01701713
+ * 01/12/22
+ *
+ */
 
 using namespace std;
 //Firmas de funciones. Abajo en su definición se describe que hacen
