@@ -39,7 +39,7 @@ Entrega Final
  
  Nota: No se me han puesto competencias de entregas pasadas cuando en el avance posterior a ese marqué en el readme la corrección acorde. No quito los avances anteriores aunque estén respaldados por el repositorio para que estén más evidentes.
 
- Probando 2
+ Probando
 
 
 
